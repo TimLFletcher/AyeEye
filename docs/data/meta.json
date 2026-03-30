@@ -1,55 +1,55 @@
 {
-  "generatedAt": "2026-03-30T16:02:06.013Z",
+  "generatedAt": "2026-03-30T16:20:52.942Z",
   "model": "gpt-4o-mini",
   "companies": [
     {
       "id": "mongodb",
       "name": "MongoDB",
-      "totalScore10": 6.82,
-      "totalScore100": 68.2
-    },
-    {
-      "id": "supabase",
-      "name": "Supabase",
-      "totalScore10": 6.72,
-      "totalScore100": 67.2
+      "totalScore10": 7.33,
+      "totalScore100": 73.33
     },
     {
       "id": "redis",
       "name": "Redis",
-      "totalScore10": 6.54,
-      "totalScore100": 65.4
+      "totalScore10": 7,
+      "totalScore100": 70
     },
     {
-      "id": "clickhouse",
-      "name": "ClickHouse",
-      "totalScore10": 6.44,
-      "totalScore100": 64.4
-    },
-    {
-      "id": "pinecone",
-      "name": "Pinecone",
-      "totalScore10": 6.4,
-      "totalScore100": 64
-    },
-    {
-      "id": "databricks",
-      "name": "Databricks",
-      "totalScore10": 6.34,
-      "totalScore100": 63.4
-    },
-    {
-      "id": "couchbase",
-      "name": "Couchbase",
-      "totalScore10": 6.34,
-      "totalScore100": 63.4
+      "id": "supabase",
+      "name": "Supabase",
+      "totalScore10": 6.5,
+      "totalScore100": 65
     },
     {
       "id": "neon",
       "name": "Neon",
-      "totalScore10": 6.14,
-      "totalScore100": 61.4
+      "totalScore10": 6.5,
+      "totalScore100": 65
+    },
+    {
+      "id": "databricks",
+      "name": "Databricks",
+      "totalScore10": 6.5,
+      "totalScore100": 65
+    },
+    {
+      "id": "clickhouse",
+      "name": "ClickHouse",
+      "totalScore10": 6.5,
+      "totalScore100": 65
+    },
+    {
+      "id": "pinecone",
+      "name": "Pinecone",
+      "totalScore10": 6.06,
+      "totalScore100": 60.56
+    },
+    {
+      "id": "couchbase",
+      "name": "Couchbase",
+      "totalScore10": 5.67,
+      "totalScore100": 56.67
     }
   ],
-  "reportSha256": "62463e9cd8957b56774bcfad26973cd62f17c44a4cf4a2cf2fcde39cce6197bd"
+  "reportSha256": "099ec422d08a0a427e559c583ab4efccf1fcb5522f66b9284e28ed99906ac20e"
 }
