@@ -2,6 +2,11 @@ name: Refresh AI Discoverability Report
 
 on:
   workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/data/**'
   schedule:
     - cron: "17 2 * * *"
 
@@ -10,6 +15,7 @@ permissions:
 
 jobs:
   build-report:
+    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
 
     steps:

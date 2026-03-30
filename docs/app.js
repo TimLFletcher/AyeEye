@@ -355,12 +355,6 @@ async function unlock({ forcePrompt = false } = {}) {
   }
 }
 
-$('unlockBtn').addEventListener('click', unlock);
-$('changePasswordBtn').addEventListener('click', async () => {
-  clearPasswordSession();
-  state.password = null;
-  await unlock({ forcePrompt: true });
-});
 $('reloadBtn').addEventListener('click', async () => {
   setError('');
   try {
@@ -370,6 +364,14 @@ $('reloadBtn').addEventListener('click', async () => {
     }
   } catch (e) {
     setError(e?.message || String(e));
+  }
+});
+
+window.addEventListener('keydown', async (e) => {
+  if (e.shiftKey && (e.key === 'P' || e.key === 'p')) {
+    clearPasswordSession();
+    state.password = null;
+    await unlock({ forcePrompt: true });
   }
 });
 
