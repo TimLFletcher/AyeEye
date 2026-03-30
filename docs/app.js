@@ -20,6 +20,18 @@ function scoreBarColor(score10) {
   return 'rgba(194, 65, 102, 0.9)';
 }
 
+function scoreBand(score10) {
+  if (score10 >= 7.5) return 'good';
+  if (score10 >= 5.5) return 'mid';
+  return 'bad';
+}
+
+function criticalityLabel(weight) {
+  if (weight >= 3) return 'Critical';
+  if (weight === 2) return 'High';
+  return 'Standard';
+}
+
 function computeWeightedTotal(criteria, criteriaDefs) {
   const byId = new Map(criteriaDefs.map((c) => [c.id, c]));
   const sumW = criteriaDefs.reduce((a, c) => a + c.weight, 0);
@@ -109,9 +121,16 @@ function renderScores() {
   tbody.innerHTML = '';
 
   const companies = state.report?.companies ?? [];
-  for (const item of companies) {
+  const n = companies.length;
+  for (let i = 0; i < companies.length; i++) {
+    const item = companies[i];
     const tr = document.createElement('tr');
     tr.dataset.companyId = item.company.id;
+    tr.classList.add('rank-row');
+
+    const t = n <= 1 ? 0 : i / (n - 1);
+    const hue = Math.round(130 - t * 110);
+    tr.style.setProperty('--rank-hue', String(hue));
 
     const nameTd = document.createElement('td');
     nameTd.textContent = item.company.name;
@@ -179,10 +198,15 @@ function renderDrilldown() {
     const c = byId.get(def.id);
     const score = typeof c?.score === 'number' ? c.score : 0;
     const badge = scoreBadge(score);
-    parts.push(`<div class="criteria-card">`);
+    const band = scoreBand(score);
+    const crit = criticalityLabel(def.weight);
+    parts.push(`<div class="criteria-card ${band}">`);
     parts.push(`<div class="criteria-card-head">`);
     parts.push(`<div class="criteria-title">${escapeHtml(def.name)}</div>`);
-    parts.push(`<span class="badge ${badge.cls}">${badge.label}</span>`);
+    parts.push(`<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;">
+      <span class="pill crit ${band}">${escapeHtml(crit)} ×${def.weight}</span>
+      <span class="badge ${badge.cls}">${badge.label}</span>
+    </div>`);
     parts.push(`</div>`);
 
     parts.push(`<div class="criteria-body">`);
@@ -375,7 +399,10 @@ async function unlock({ forcePrompt = false } = {}) {
   try {
     const report = await decryptReport(password, state.encrypted);
     state.report = report;
-    state.selectedCompanyId = state.selectedCompanyId || report.companies?.[0]?.company?.id || null;
+    if (!state.selectedCompanyId) {
+      const hasCouchbase = report.companies?.some((c) => c?.company?.id === 'couchbase');
+      state.selectedCompanyId = hasCouchbase ? 'couchbase' : report.companies?.[0]?.company?.id || null;
+    }
     renderScores();
     renderDrilldown();
     renderCouchbase();

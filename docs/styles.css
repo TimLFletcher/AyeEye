@@ -149,6 +149,28 @@ input[type="password"] {
   background: rgba(30, 34, 48, 0.04);
 }
 
+.pill.crit {
+  font-weight: 700;
+}
+
+.pill.crit.good {
+  background: rgba(46, 158, 107, 0.10);
+  border-color: rgba(46, 158, 107, 0.28);
+  color: #1e3a2a;
+}
+
+.pill.crit.mid {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.30);
+  color: #5a3a00;
+}
+
+.pill.crit.bad {
+  background: rgba(194, 65, 102, 0.10);
+  border-color: rgba(194, 65, 102, 0.26);
+  color: #4a1c28;
+}
+
 .pill.focus {
   color: #1f3d35;
   background: rgba(116, 183, 167, 0.18);
@@ -184,6 +206,18 @@ tbody tr {
 
 tbody tr:hover {
   background: rgba(123, 108, 246, 0.06);
+}
+
+tbody tr.rank-row {
+  background: hsla(var(--rank-hue, 230), 80%, 92%, 0.35);
+}
+
+tbody tr.rank-row:hover {
+  background: hsla(var(--rank-hue, 230), 80%, 90%, 0.55);
+}
+
+tbody tr.rank-row .score-bar > span {
+  background: hsla(var(--rank-hue, 230), 75%, 45%, 0.9);
 }
 
 .score-cell {
@@ -278,6 +312,21 @@ ul {
   background: var(--panel2);
   border-radius: 12px;
   padding: 12px;
+}
+
+.criteria-card.good {
+  border-color: rgba(46, 158, 107, 0.28);
+  background: rgba(46, 158, 107, 0.06);
+}
+
+.criteria-card.mid {
+  border-color: rgba(245, 158, 11, 0.30);
+  background: rgba(245, 158, 11, 0.06);
+}
+
+.criteria-card.bad {
+  border-color: rgba(194, 65, 102, 0.26);
+  background: rgba(194, 65, 102, 0.05);
 }
 
 .criteria-card-head {
