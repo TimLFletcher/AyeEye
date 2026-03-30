@@ -15,49 +15,49 @@ const COMPANIES = [
 
 const CRITERIA = [
   {
-    id: 'llm_brand_recall',
-    name: 'LLM brand recall & positioning clarity',
-    weight: 0.12
+    id: 'llms_txt',
+    name: 'llms.txt',
+    weight: 3
   },
   {
-    id: 'product_narrative',
-    name: 'Product narrative coherence (site + docs)',
-    weight: 0.12
+    id: 'mcp_server',
+    name: 'MCP Server',
+    weight: 3
   },
   {
-    id: 'docs_ia',
-    name: 'Documentation IA & task discoverability',
-    weight: 0.14
+    id: 'robots_txt_ai_optimization',
+    name: 'robots.txt AI Optimization',
+    weight: 3
   },
   {
-    id: 'quickstarts',
-    name: 'Quickstarts, getting started, and time-to-first-success',
-    weight: 0.12
+    id: 'llms_full_txt',
+    name: 'llms-full.txt',
+    weight: 2
   },
   {
-    id: 'seo_technical',
-    name: 'Technical SEO & indexability (docs + marketing)',
-    weight: 0.10
+    id: 'markdown_native_docs',
+    name: 'Markdown-Native Docs',
+    weight: 2
   },
   {
-    id: 'llm_friendly_docs',
-    name: 'LLM-friendly docs (structure, chunkability, API refs)',
-    weight: 0.14
+    id: 'structured_faq_jsonld',
+    name: 'Structured FAQ (JSON-LD)',
+    weight: 2
   },
   {
-    id: 'error_messages',
-    name: 'Error message / troubleshooting discoverability',
-    weight: 0.08
+    id: 'html_parse_efficiency',
+    name: 'HTML Parse Efficiency',
+    weight: 1
   },
   {
-    id: 'pricing_packaging_clarity',
-    name: 'Pricing / packaging clarity and plan differentiation',
-    weight: 0.08
+    id: 'live_agent_environment',
+    name: 'Live Agent Environment',
+    weight: 1
   },
   {
-    id: 'community_signals',
-    name: 'Community signals & third-party footprint',
-    weight: 0.10
+    id: 'training_data_surface',
+    name: 'Training Data Surface',
+    weight: 1
   }
 ];
 
@@ -148,7 +148,8 @@ function validateScores(companyId, obj) {
     if (typeof item.score !== 'number' || item.score < 0 || item.score > 10) {
       throw new Error(`Invalid score for ${companyId}/${item.id}: ${item.score}`);
     }
-    if (typeof item.summary !== 'string') throw new Error(`Missing summary for ${companyId}/${item.id}`);
+    if (typeof item.analysis !== 'string') throw new Error(`Missing analysis for ${companyId}/${item.id}`);
+    if (!Array.isArray(item.advice)) throw new Error(`Missing advice for ${companyId}/${item.id}`);
     if (!Array.isArray(item.evidence)) throw new Error(`Missing evidence for ${companyId}/${item.id}`);
   }
 
@@ -179,21 +180,25 @@ async function main() {
   const reportPassword = requiredEnv('REPORT_PASSWORD');
   const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 
-  const schemaHint = `Return JSON in this exact shape:\n{\n  "criteria": [\n    {"id": "<criteria_id>", "score": <0-10 number>, "summary": "...", "evidence": ["..."], "recommendations": ["..."]}\n  ],\n  "overallSummary": "..."\n}`;
+  const schemaHint = `Return JSON in this exact shape:\n{\n  "criteria": [\n    {"id": "<criteria_id>", "score": <0-10 number>, "analysis": "...", "evidence": ["..."], "advice": ["..."]}\n  ],\n  "overallSummary": "..."\n}`;
 
   const allCompanyReports = [];
 
   for (const company of COMPANIES) {
     const prompt = [
-      `Evaluate AI discoverability for ${company.name} as a developer platform.`,
-      `Focus on how well LLMs (ChatGPT-style) can accurately recommend and guide usage of ${company.name} based on public web signals.`,
-      `Consider BOTH marketing site and documentation:`,
+      `Evaluate AI Machine Discoverability for ${company.name}.`,
+      `Focus on how well automated agents and LLM-based systems can discover, parse, and operate on ${company.name} from public web signals and agent interfaces.`,
+      `Consider BOTH marketing site and documentation, plus agent-facing artifacts when relevant:`,
       `- Website: ${company.website}`,
       `- Docs: ${company.docs}`,
       '',
-      'Score each criteria id from 0-10 with short evidence bullets and concrete recommendations.',
-      'Keep evidence high-level (no need to browse). Use best-effort priors and common failure modes.',
-      'Be consistent across companies.',
+      'Score each criteria id from 0-10.',
+      'For each criterion include:',
+      '- analysis: what likely exists / how strong it is',
+      '- evidence: high-level signals or likely URLs to check',
+      '- advice: concrete next improvements',
+      'If you are uncertain, say so in analysis and give a verification step in evidence.',
+      'Be consistent across companies and focus on actionability.',
       '',
       `Criteria IDs (must include all): ${CRITERIA.map(c => c.id).join(', ')}`
     ].join('\n');
@@ -211,14 +216,15 @@ async function main() {
   }
 
   const couchbase = allCompanyReports.find(r => r.company.id === 'couchbase');
-  const couchbaseAdviceSchema = `Return JSON in this exact shape:\n{\n  "topFindings": ["..."],\n  "nextBestActions": [\n    {"title": "...", "impact": "high|medium|low", "effort": "high|medium|low", "why": "...", "how": ["..."]}\n  ],\n  "messagingImprovements": ["..."],\n  "docsImprovements": ["..."],\n  "measurements": ["..."]\n}`;
+  const couchbaseAdviceSchema = `Return JSON in this exact shape:\n{\n  "topFindings": ["..."],\n  "nextBestActions": [\n    {"title": "...", "impact": "high|medium|low", "effort": "high|medium|low", "why": "...", "how": ["..."]}\n  ],\n  "criteriaSpecificPlan": [\n    {"criteriaId": "<criteria_id>", "whatToDo": ["..."], "howToValidate": ["..."]}\n  ],\n  "measurements": ["..."]\n}`;
 
   const couchbaseAdvicePrompt = [
-    'Given this Couchbase scorecard (criteria and summaries), propose the most salient next improvements.',
-    'Emphasize product discoverability through LLMs and developers finding correct tasks in docs.',
+    'Given this Couchbase scorecard, propose the most salient next improvements for AI Machine Discoverability.',
+    'Prioritize critical criteria (weight ×3) first, then high (×2), then standard (×1).',
     'Give advice that is actionable in 2-6 weeks and prioritizes highest impact.',
     '',
     `Couchbase totals: ${JSON.stringify({ totalScore10: couchbase?.totalScore10, totalScore100: couchbase?.totalScore100 })}`,
+    `Criteria definitions: ${JSON.stringify(CRITERIA)}`,
     `Couchbase criteria: ${JSON.stringify(couchbase?.criteria ?? [])}`
   ].join('\n');
 

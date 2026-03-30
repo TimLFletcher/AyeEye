@@ -160,22 +160,36 @@ function renderDrilldown() {
 
   const criteriaById = new Map(state.report.criteria.map((c) => [c.id, c]));
 
-  for (const c of item.criteria) {
-    const def = criteriaById.get(c.id);
-    const badge = scoreBadge(c.score);
-    parts.push(`<div class="section">`);
-    parts.push(`<h3>${escapeHtml(def?.name ?? c.id)} <span class="badge ${badge.cls}">${badge.label}</span></h3>`);
-    parts.push(`<div class="muted">${escapeHtml(c.summary || '')}</div>`);
-    if (Array.isArray(c.evidence) && c.evidence.length) {
-      parts.push(`<div class="muted small" style="margin-top:6px;">Evidence</div>`);
+  parts.push(`<div class="section"><h3>Criteria</h3></div>`);
+  parts.push(`<div class="criteria-grid">`);
+
+  // Ensure consistent ordering by report criteria definition
+  const byId = new Map((item.criteria || []).map((x) => [x.id, x]));
+  for (const def of state.report.criteria) {
+    const c = byId.get(def.id);
+    const score = typeof c?.score === 'number' ? c.score : 0;
+    const badge = scoreBadge(score);
+    parts.push(`<div class="criteria-card">`);
+    parts.push(`<div class="criteria-card-head">`);
+    parts.push(`<div class="criteria-title">${escapeHtml(def.name)}</div>`);
+    parts.push(`<span class="badge ${badge.cls}">${badge.label}</span>`);
+    parts.push(`</div>`);
+
+    parts.push(`<div class="criteria-body">`);
+    parts.push(`<div>${escapeHtml(c?.analysis || '')}</div>`);
+    if (Array.isArray(c?.evidence) && c.evidence.length) {
+      parts.push(`<div class="muted small" style="margin-top:6px;">Evidence to verify</div>`);
       parts.push(`<ul>${c.evidence.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`);
     }
-    if (Array.isArray(c.recommendations) && c.recommendations.length) {
-      parts.push(`<div class="muted small" style="margin-top:6px;">Recommendations</div>`);
-      parts.push(`<ul>${c.recommendations.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`);
+    if (Array.isArray(c?.advice) && c.advice.length) {
+      parts.push(`<div class="muted small" style="margin-top:6px;">Advice</div>`);
+      parts.push(`<ul>${c.advice.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`);
     }
     parts.push(`</div>`);
+    parts.push(`</div>`);
   }
+
+  parts.push(`</div>`);
 
   detailBody.classList.remove('muted');
   detailBody.innerHTML = parts.join('');
@@ -230,15 +244,21 @@ function renderCouchbase() {
     parts.push('</div>');
   }
 
-  if (Array.isArray(advice.messagingImprovements) && advice.messagingImprovements.length) {
-    parts.push('<div class="section"><h3>Messaging improvements</h3>');
-    parts.push(`<ul>${advice.messagingImprovements.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`);
-    parts.push('</div>');
-  }
-
-  if (Array.isArray(advice.docsImprovements) && advice.docsImprovements.length) {
-    parts.push('<div class="section"><h3>Docs improvements</h3>');
-    parts.push(`<ul>${advice.docsImprovements.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`);
+  if (Array.isArray(advice.criteriaSpecificPlan) && advice.criteriaSpecificPlan.length) {
+    parts.push('<div class="section"><h3>Criteria-specific plan</h3>');
+    for (const p of advice.criteriaSpecificPlan) {
+      parts.push(`<div class="section">`);
+      parts.push(`<div style="font-weight:700;">${escapeHtml(p.criteriaId || '')}</div>`);
+      if (Array.isArray(p.whatToDo) && p.whatToDo.length) {
+        parts.push(`<div class="muted small" style="margin-top:6px;">What to do</div>`);
+        parts.push(`<ul>${p.whatToDo.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`);
+      }
+      if (Array.isArray(p.howToValidate) && p.howToValidate.length) {
+        parts.push(`<div class="muted small" style="margin-top:6px;">How to validate</div>`);
+        parts.push(`<ul>${p.howToValidate.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`);
+      }
+      parts.push(`</div>`);
+    }
     parts.push('</div>');
   }
 
