@@ -4,7 +4,8 @@ const state = {
   meta: null,
   encrypted: null,
   report: null,
-  selectedCompanyId: null
+  selectedCompanyId: null,
+  password: null
 };
 
 function scoreBadge(score10) {
@@ -58,10 +59,21 @@ async function deriveKey(password, saltBytes, iterations) {
 }
 
 async function decryptReport(password, encrypted) {
+  if (!encrypted || typeof encrypted !== 'object') {
+    throw new Error('Encrypted report is missing.');
+  }
+  if (!encrypted.data || !encrypted.salt || !encrypted.iv || !encrypted.tag) {
+    throw new Error('Encrypted report is not generated yet.');
+  }
+
   const salt = b64ToBytes(encrypted.salt);
   const iv = b64ToBytes(encrypted.iv);
   const tag = b64ToBytes(encrypted.tag);
   const data = b64ToBytes(encrypted.data);
+
+  if (data.length < 16) {
+    throw new Error('Encrypted report payload is too small (likely placeholder).');
+  }
 
   const combined = new Uint8Array(data.length + tag.length);
   combined.set(data, 0);
@@ -282,11 +294,51 @@ function updateWorkflowLink() {
   link.href = 'https://github.com/TimLFletcher/AyeEye/actions/workflows/refresh-report.yml';
 }
 
-async function unlock() {
+function getPasswordFromSession() {
+  try {
+    return sessionStorage.getItem('aidiscovery_password');
+  } catch {
+    return null;
+  }
+}
+
+function setPasswordToSession(pw) {
+  try {
+    sessionStorage.setItem('aidiscovery_password', pw);
+  } catch {
+    // ignore
+  }
+}
+
+function clearPasswordSession() {
+  try {
+    sessionStorage.removeItem('aidiscovery_password');
+  } catch {
+    // ignore
+  }
+}
+
+async function promptForPassword({ force = false } = {}) {
+  if (!force) {
+    const existing = state.password || getPasswordFromSession();
+    if (existing) {
+      state.password = existing;
+      return existing;
+    }
+  }
+
+  const pw = window.prompt('Enter dashboard password');
+  if (!pw) return null;
+  state.password = pw;
+  setPasswordToSession(pw);
+  return pw;
+}
+
+async function unlock({ forcePrompt = false } = {}) {
   setError('');
-  const password = $('password').value;
+  const password = await promptForPassword({ force: forcePrompt });
   if (!password) {
-    setError('Enter password to unlock.');
+    setError('Password is required to view the report.');
     return;
   }
 
@@ -299,23 +351,26 @@ async function unlock() {
     renderCouchbase();
   } catch (e) {
     state.report = null;
-    setError(`Failed to decrypt report. Check password.\n${e?.message || e}`);
+    setError(`Unable to unlock report.\n${e?.message || e}`);
   }
 }
 
 $('unlockBtn').addEventListener('click', unlock);
+$('changePasswordBtn').addEventListener('click', async () => {
+  clearPasswordSession();
+  state.password = null;
+  await unlock({ forcePrompt: true });
+});
 $('reloadBtn').addEventListener('click', async () => {
   setError('');
   try {
     await reloadAll();
-    if (state.report) await unlock();
+    if (state.password || getPasswordFromSession()) {
+      await unlock();
+    }
   } catch (e) {
     setError(e?.message || String(e));
   }
-});
-
-$('password').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') unlock();
 });
 
 updateWorkflowLink();
@@ -323,6 +378,7 @@ updateWorkflowLink();
 (async () => {
   try {
     await reloadAll();
+    await unlock();
   } catch (e) {
     setError(e?.message || String(e));
   }
