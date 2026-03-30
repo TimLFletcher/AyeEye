@@ -95,13 +95,12 @@ h1 {
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 14px;
   margin-top: 14px;
 }
 
 @media (max-width: 900px) {
-  .grid { grid-template-columns: 1fr; }
   .header { flex-direction: column; }
 }
 
@@ -185,6 +184,35 @@ tbody tr {
 
 tbody tr:hover {
   background: rgba(123, 108, 246, 0.06);
+}
+
+.score-cell {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.score-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.score-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(30, 34, 48, 0.08);
+  overflow: hidden;
+  border: 1px solid rgba(30, 34, 48, 0.08);
+}
+
+.score-bar > span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
 }
 
 .kv {

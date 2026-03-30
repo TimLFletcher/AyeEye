@@ -14,6 +14,12 @@ function scoreBadge(score10) {
   return { cls: 'bad', label: `${score10.toFixed(2)} / 10` };
 }
 
+function scoreBarColor(score10) {
+  if (score10 >= 7.5) return 'rgba(46, 158, 107, 0.9)';
+  if (score10 >= 5.5) return 'rgba(245, 158, 11, 0.9)';
+  return 'rgba(194, 65, 102, 0.9)';
+}
+
 function computeWeightedTotal(criteria, criteriaDefs) {
   const byId = new Map(criteriaDefs.map((c) => [c.id, c]));
   const sumW = criteriaDefs.reduce((a, c) => a + c.weight, 0);
@@ -110,14 +116,18 @@ function renderScores() {
     const nameTd = document.createElement('td');
     nameTd.textContent = item.company.name;
 
-    const total100Td = document.createElement('td');
-    total100Td.textContent = item.totalScore100.toFixed(2);
-
     const total10Td = document.createElement('td');
-    total10Td.textContent = item.totalScore10.toFixed(2);
+    const score10 = item.totalScore10;
+    const pct = Math.max(0, Math.min(100, (score10 / 10) * 100));
+    const barColor = scoreBarColor(score10);
+    total10Td.innerHTML = [
+      `<div class="score-cell">`,
+      `<div class="score-num">${score10.toFixed(2)} / 10</div>`,
+      `<div class="score-bar"><span style="width:${pct.toFixed(1)}%;background:${barColor}"></span></div>`,
+      `</div>`
+    ].join('');
 
     tr.appendChild(nameTd);
-    tr.appendChild(total100Td);
     tr.appendChild(total10Td);
 
     tr.addEventListener('click', () => {
@@ -151,7 +161,7 @@ function renderDrilldown() {
   const totals = computeWeightedTotal(item.criteria, state.report.criteria);
 
   detailTitle.textContent = `${item.company.name} score breakdown`;
-  detailPill.textContent = `${totals.totalScore100.toFixed(1)} / 100`;
+  detailPill.textContent = `${totals.totalScore10.toFixed(2)} / 10`;
 
   const parts = [];
   parts.push(`<div class="kv"><div class="muted">Website</div><div><a href="${item.company.website}" target="_blank" rel="noreferrer">${item.company.website}</a></div></div>`);
@@ -215,7 +225,7 @@ function renderCouchbase() {
 
   const parts = [];
   if (totals) {
-    parts.push(`<div class="kv"><div class="muted">Couchbase total</div><div><span class="badge mid">${totals.totalScore100.toFixed(1)} / 100</span></div></div>`);
+    parts.push(`<div class="kv"><div class="muted">Couchbase total</div><div><span class="badge mid">${totals.totalScore10.toFixed(2)} / 10</span></div></div>`);
   }
 
   if (Array.isArray(advice.topFindings) && advice.topFindings.length) {
