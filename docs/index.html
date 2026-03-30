@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Discoverability Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div>
+          <h1>AI Discoverability Dashboard</h1>
+          <div class="sub">
+            Comprehensive AI discoverability scoring across marketing sites and docs (LLM-oriented). Focus: Couchbase.
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="reloadBtn" class="btn">Reload latest</button>
+          <a id="runWorkflowLink" class="btn secondary" target="_blank" rel="noreferrer">Run refresh workflow</a>
+        </div>
+      </header>
+
+      <section class="card" id="accessCard">
+        <h2>Access</h2>
+        <div class="row">
+          <label class="label" for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter dashboard password" />
+          <button id="unlockBtn" class="btn">Unlock report</button>
+        </div>
+        <div class="muted" id="metaLine"></div>
+        <div class="error" id="errorLine"></div>
+      </section>
+
+      <section class="grid">
+        <div class="card" id="scoresCard">
+          <div class="card-head">
+            <h2>Company scores</h2>
+            <div class="muted" id="generatedAt"></div>
+          </div>
+          <div class="table-wrap">
+            <table id="scoresTable">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Total (0-100)</th>
+                  <th>Total (0-10)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="muted small">
+            Click a company row to drill down.
+          </div>
+        </div>
+
+        <div class="card" id="detailCard">
+          <div class="card-head">
+            <h2 id="detailTitle">Drilldown</h2>
+            <div class="pill" id="detailPill"></div>
+          </div>
+          <div id="detailBody" class="muted">
+            Unlock the report to view details.
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="couchbaseCard">
+        <div class="card-head">
+          <h2>Couchbase: what to improve next</h2>
+          <div class="pill focus">Focus</div>
+        </div>
+        <div id="couchbaseBody" class="muted">
+          Unlock the report to view Couchbase recommendations.
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="muted small">
+          Notes: this dashboard stores no password server-side (GitHub Pages is static). The report is encrypted during the GitHub Action and decrypted locally in your browser.
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

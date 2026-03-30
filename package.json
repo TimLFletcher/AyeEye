@@ -1,0 +1,8 @@
+{
+  "name": "ai-discoverability-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "evaluate": "node scripts/evaluate.mjs"
+  }
+}
