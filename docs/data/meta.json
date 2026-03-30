@@ -1,18 +1,12 @@
 {
-  "generatedAt": "2026-03-30T16:56:56.615Z",
+  "generatedAt": "2026-03-30T17:15:37.748Z",
   "model": "gpt-4o-mini",
   "companies": [
     {
       "id": "mongodb",
       "name": "MongoDB",
-      "totalScore10": 7.06,
-      "totalScore100": 70.56
-    },
-    {
-      "id": "redis",
-      "name": "Redis",
-      "totalScore10": 7,
-      "totalScore100": 70
+      "totalScore10": 7.22,
+      "totalScore100": 72.22
     },
     {
       "id": "supabase",
@@ -27,6 +21,18 @@
       "totalScore100": 65
     },
     {
+      "id": "databricks",
+      "name": "Databricks",
+      "totalScore10": 6.5,
+      "totalScore100": 65
+    },
+    {
+      "id": "redis",
+      "name": "Redis",
+      "totalScore10": 6.5,
+      "totalScore100": 65
+    },
+    {
       "id": "clickhouse",
       "name": "ClickHouse",
       "totalScore10": 6.5,
@@ -35,21 +41,15 @@
     {
       "id": "neon",
       "name": "Neon",
-      "totalScore10": 6.28,
-      "totalScore100": 62.78
-    },
-    {
-      "id": "databricks",
-      "name": "Databricks",
-      "totalScore10": 6.22,
-      "totalScore100": 62.22
+      "totalScore10": 6.44,
+      "totalScore100": 64.44
     },
     {
       "id": "couchbase",
       "name": "Couchbase",
-      "totalScore10": 5.67,
-      "totalScore100": 56.67
+      "totalScore10": 6.44,
+      "totalScore100": 64.44
     }
   ],
-  "reportSha256": "c082cbb07d3ceecb50ac285fbc202e176748d21b757f9ea3542a9e0d5a437512"
+  "reportSha256": "b7dec3330ed63e69efc9938b45e39440ee1ea490238e3654994dd9707a7819ce"
 }
