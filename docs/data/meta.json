@@ -1,55 +1,55 @@
 {
-  "generatedAt": "2026-03-31T04:45:57.006Z",
+  "generatedAt": "2026-03-31T14:11:39.266Z",
   "model": "gpt-4o-mini",
   "companies": [
     {
       "id": "redis",
       "name": "Redis",
-      "totalScore10": 7.22,
-      "totalScore100": 72.22
-    },
-    {
-      "id": "mongodb",
-      "name": "MongoDB",
-      "totalScore10": 7.22,
-      "totalScore100": 72.22
-    },
-    {
-      "id": "supabase",
-      "name": "Supabase",
-      "totalScore10": 6.5,
-      "totalScore100": 65
-    },
-    {
-      "id": "databricks",
-      "name": "Databricks",
-      "totalScore10": 6.5,
-      "totalScore100": 65
-    },
-    {
-      "id": "clickhouse",
-      "name": "ClickHouse",
-      "totalScore10": 6.5,
-      "totalScore100": 65
-    },
-    {
-      "id": "neon",
-      "name": "Neon",
-      "totalScore10": 6.33,
-      "totalScore100": 63.33
+      "totalScore10": 6.39,
+      "totalScore100": 63.89
     },
     {
       "id": "pinecone",
       "name": "Pinecone",
-      "totalScore10": 6.06,
-      "totalScore100": 60.56
+      "totalScore10": 4.89,
+      "totalScore100": 48.89
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "totalScore10": 4.67,
+      "totalScore100": 46.67
+    },
+    {
+      "id": "mongodb",
+      "name": "MongoDB",
+      "totalScore10": 4.67,
+      "totalScore100": 46.67
+    },
+    {
+      "id": "neon",
+      "name": "Neon",
+      "totalScore10": 4.61,
+      "totalScore100": 46.11
     },
     {
       "id": "couchbase",
       "name": "Couchbase",
-      "totalScore10": 5.67,
-      "totalScore100": 56.67
+      "totalScore10": 4.44,
+      "totalScore100": 44.44
+    },
+    {
+      "id": "databricks",
+      "name": "Databricks",
+      "totalScore10": 4.33,
+      "totalScore100": 43.33
+    },
+    {
+      "id": "clickhouse",
+      "name": "ClickHouse",
+      "totalScore10": 3.72,
+      "totalScore100": 37.22
     }
   ],
-  "reportSha256": "5492fdc2b5a8439eaaf02d61afdd8e5f3dcbeba3c3e69c1dc9a6f2592e6d66bc"
+  "reportSha256": "ca3b2b4323a2195b5c1d0ef3a8d9d055db3242cc2debe26c2b31b29eee2bfc77"
 }
