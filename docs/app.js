@@ -32,6 +32,69 @@ function criticalityLabel(weight) {
   return 'Standard';
 }
 
+function renderLlmsExperiments(item, criterionId) {
+  const exp = item?.experiments?.llmsArtifacts;
+  if (!exp) return '';
+
+  const key = criterionId === 'llms_full_txt' ? 'llms_full_txt' : 'llms_txt';
+  const control = exp.control?.[key];
+  const ai = exp.ai?.[key];
+  const aiErr = exp.aiError;
+
+  const parts = [];
+  parts.push(`<div class="muted small" style="margin-top:10px;">Experiments</div>`);
+  parts.push(`<div class="muted small">Control (link-based discovery from Website/Docs landing pages)</div>`);
+
+  if (control) {
+    if (Array.isArray(control.candidates) && control.candidates.length) {
+      parts.push(`<div class="muted small" style="margin-top:6px;">Discovered candidate links</div>`);
+      parts.push(`<ul>${control.candidates.map((u) => `<li><a href="${escapeHtml(u)}" target="_blank" rel="noreferrer">${escapeHtml(u)}</a></li>`).join('')}</ul>`);
+    } else {
+      parts.push(`<div class="muted small" style="margin-top:6px;">No candidate links discovered from landing pages.</div>`);
+    }
+
+    if (Array.isArray(control.fetched) && control.fetched.length) {
+      parts.push(`<div class="muted small" style="margin-top:6px;">Fetch results</div>`);
+      parts.push('<ul>');
+      for (const f of control.fetched) {
+        const label = f.ok ? 'OK' : 'Failed';
+        const meta = [
+          typeof f.status === 'number' ? `HTTP ${f.status}` : null,
+          typeof f.bytes === 'number' ? `${f.bytes} bytes` : null,
+          typeof f.lineCount === 'number' ? `${f.lineCount} lines` : null,
+          f.contentType ? f.contentType : null,
+          f.truncated ? 'truncated' : null,
+          f.error ? `error: ${f.error}` : null
+        ].filter(Boolean).join(' · ');
+
+        const u = f.url || '';
+        const uHtml = u ? `<a href="${escapeHtml(u)}" target="_blank" rel="noreferrer">${escapeHtml(u)}</a>` : '(no url)';
+        parts.push(`<li><span class="pill">${escapeHtml(label)}</span> ${uHtml}${meta ? ` <span class="muted small">(${escapeHtml(meta)})</span>` : ''}</li>`);
+      }
+      parts.push('</ul>');
+    }
+  } else {
+    parts.push(`<div class="muted small" style="margin-top:6px;">No control experiment data present in report.</div>`);
+  }
+
+  parts.push(`<div class="muted small" style="margin-top:8px;">AI (web search discovery)</div>`);
+  if (ai) {
+    parts.push('<ul>');
+    parts.push(`<li><span class="pill">exists: ${escapeHtml(String(ai.exists))}</span></li>`);
+    if (ai.url) parts.push(`<li>url: <a href="${escapeHtml(ai.url)}" target="_blank" rel="noreferrer">${escapeHtml(ai.url)}</a></li>`);
+    if (ai.how_found) parts.push(`<li><span class="muted small">how_found:</span> ${escapeHtml(ai.how_found)}</li>`);
+    parts.push(`<li><span class="pill">spec_compliant: ${escapeHtml(String(ai.spec_compliant))}</span> <span class="pill">score: ${escapeHtml(String(ai.score))}</span></li>`);
+    if (Array.isArray(ai.issues) && ai.issues.length) {
+      parts.push(`<li><span class="muted small">issues:</span><ul>${ai.issues.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul></li>`);
+    }
+    parts.push('</ul>');
+  } else {
+    parts.push(`<div class="muted small" style="margin-top:6px;">AI experiment not available.${aiErr ? ` Error: ${escapeHtml(aiErr)}` : ''}</div>`);
+  }
+
+  return parts.join('');
+}
+
 function computeWeightedTotal(criteria, criteriaDefs) {
   const byId = new Map(criteriaDefs.map((c) => [c.id, c]));
   const sumW = criteriaDefs.reduce((a, c) => a + c.weight, 0);
@@ -218,6 +281,10 @@ function renderDrilldown() {
     if (Array.isArray(c?.advice) && c.advice.length) {
       parts.push(`<div class="muted small" style="margin-top:6px;">Advice</div>`);
       parts.push(`<ul>${c.advice.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`);
+    }
+
+    if (def.id === 'llms_txt' || def.id === 'llms_full_txt') {
+      parts.push(renderLlmsExperiments(item, def.id));
     }
     parts.push(`</div>`);
     parts.push(`</div>`);

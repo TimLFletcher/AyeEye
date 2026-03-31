@@ -31,6 +31,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          OPENAI_RESPONSES_MODEL: ${{ secrets.OPENAI_RESPONSES_MODEL }}
           REPORT_PASSWORD: ${{ secrets.REPORT_PASSWORD }}
         run: |
           node --version
