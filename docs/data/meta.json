@@ -1,55 +1,55 @@
 {
-  "generatedAt": "2026-04-02T04:40:46.092Z",
+  "generatedAt": "2026-04-03T04:41:33.512Z",
   "model": "gpt-4o-mini",
   "companies": [
     {
+      "id": "couchbase",
+      "name": "Couchbase",
+      "totalScore10": 6.22,
+      "totalScore100": 62.22
+    },
+    {
       "id": "redis",
       "name": "Redis",
-      "totalScore10": 6.06,
-      "totalScore100": 60.56
+      "totalScore10": 6.17,
+      "totalScore100": 61.67
     },
     {
       "id": "supabase",
       "name": "Supabase",
-      "totalScore10": 5.67,
-      "totalScore100": 56.67
-    },
-    {
-      "id": "mongodb",
-      "name": "MongoDB",
-      "totalScore10": 5.67,
-      "totalScore100": 56.67
-    },
-    {
-      "id": "databricks",
-      "name": "Databricks",
-      "totalScore10": 5.61,
-      "totalScore100": 56.11
-    },
-    {
-      "id": "couchbase",
-      "name": "Couchbase",
-      "totalScore10": 5.33,
-      "totalScore100": 53.33
-    },
-    {
-      "id": "clickhouse",
-      "name": "ClickHouse",
-      "totalScore10": 4.11,
-      "totalScore100": 41.11
+      "totalScore10": 4.67,
+      "totalScore100": 46.67
     },
     {
       "id": "pinecone",
       "name": "Pinecone",
-      "totalScore10": 3.89,
-      "totalScore100": 38.89
+      "totalScore10": 4.67,
+      "totalScore100": 46.67
+    },
+    {
+      "id": "mongodb",
+      "name": "MongoDB",
+      "totalScore10": 4.67,
+      "totalScore100": 46.67
+    },
+    {
+      "id": "databricks",
+      "name": "Databricks",
+      "totalScore10": 4.61,
+      "totalScore100": 46.11
+    },
+    {
+      "id": "clickhouse",
+      "name": "ClickHouse",
+      "totalScore10": 4.61,
+      "totalScore100": 46.11
     },
     {
       "id": "neon",
       "name": "Neon",
-      "totalScore10": 3.61,
-      "totalScore100": 36.11
+      "totalScore10": 4.56,
+      "totalScore100": 45.56
     }
   ],
-  "reportSha256": "5f862d11d75d56a9aa3686b654ab375bae77cb18274a6225e8ad77fb8c0d51b7"
+  "reportSha256": "ce067aa709d3e211bc1cb977e69f7f98409807c1b46f00f38dafaf0c144d6ffa"
 }
