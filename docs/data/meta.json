@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-22T05:09:37.383Z",
+  "generatedAt": "2026-04-23T05:13:52.501Z",
   "model": "gpt-4o-mini",
   "companies": [
     {
@@ -9,47 +9,47 @@
       "totalScore100": 60.56
     },
     {
-      "id": "mongodb",
-      "name": "MongoDB",
-      "totalScore10": 5.67,
-      "totalScore100": 56.67
-    },
-    {
-      "id": "pinecone",
-      "name": "Pinecone",
-      "totalScore10": 4.67,
-      "totalScore100": 46.67
-    },
-    {
-      "id": "supabase",
-      "name": "Supabase",
-      "totalScore10": 4.61,
-      "totalScore100": 46.11
-    },
-    {
       "id": "couchbase",
       "name": "Couchbase",
-      "totalScore10": 4.44,
-      "totalScore100": 44.44
-    },
-    {
-      "id": "clickhouse",
-      "name": "ClickHouse",
-      "totalScore10": 3.89,
-      "totalScore100": 38.89
-    },
-    {
-      "id": "neon",
-      "name": "Neon",
-      "totalScore10": 3.83,
-      "totalScore100": 38.33
+      "totalScore10": 5.44,
+      "totalScore100": 54.44
     },
     {
       "id": "databricks",
       "name": "Databricks",
-      "totalScore10": 3.83,
-      "totalScore100": 38.33
+      "totalScore10": 4.83,
+      "totalScore100": 48.33
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "totalScore10": 4.67,
+      "totalScore100": 46.67
+    },
+    {
+      "id": "mongodb",
+      "name": "MongoDB",
+      "totalScore10": 4.67,
+      "totalScore100": 46.67
+    },
+    {
+      "id": "clickhouse",
+      "name": "ClickHouse",
+      "totalScore10": 4.61,
+      "totalScore100": 46.11
+    },
+    {
+      "id": "neon",
+      "name": "Neon",
+      "totalScore10": 4.11,
+      "totalScore100": 41.11
+    },
+    {
+      "id": "pinecone",
+      "name": "Pinecone",
+      "totalScore10": 4.11,
+      "totalScore100": 41.11
     }
   ],
-  "reportSha256": "04a1d2d387d2561d4084ca518ab703f6724fcc5f30b5fd78ed23e78b15fa1b73"
+  "reportSha256": "4e5a430ebc3cf483b58b04c3c60b516c6d76a43c30cfec8c2eba41bb3497601f"
 }
