@@ -1,55 +1,55 @@
 {
-  "generatedAt": "2026-05-08T05:14:45.054Z",
+  "generatedAt": "2026-05-09T05:32:50.063Z",
   "model": "gpt-4o-mini",
   "companies": [
     {
       "id": "supabase",
       "name": "Supabase",
-      "totalScore10": 7.06,
-      "totalScore100": 70.56
+      "totalScore10": 6.33,
+      "totalScore100": 63.33
     },
     {
       "id": "redis",
       "name": "Redis",
-      "totalScore10": 6.11,
-      "totalScore100": 61.11
-    },
-    {
-      "id": "couchbase",
-      "name": "Couchbase",
-      "totalScore10": 5.89,
-      "totalScore100": 58.89
+      "totalScore10": 5.94,
+      "totalScore100": 59.44
     },
     {
       "id": "pinecone",
       "name": "Pinecone",
-      "totalScore10": 5.39,
-      "totalScore100": 53.89
-    },
-    {
-      "id": "databricks",
-      "name": "Databricks",
-      "totalScore10": 4.67,
-      "totalScore100": 46.67
-    },
-    {
-      "id": "clickhouse",
-      "name": "ClickHouse",
-      "totalScore10": 4.67,
-      "totalScore100": 46.67
-    },
-    {
-      "id": "mongodb",
-      "name": "MongoDB",
-      "totalScore10": 4.67,
-      "totalScore100": 46.67
+      "totalScore10": 5.89,
+      "totalScore100": 58.89
     },
     {
       "id": "neon",
       "name": "Neon",
-      "totalScore10": 4.39,
-      "totalScore100": 43.89
+      "totalScore10": 5.28,
+      "totalScore100": 52.78
+    },
+    {
+      "id": "mongodb",
+      "name": "MongoDB",
+      "totalScore10": 4.72,
+      "totalScore100": 47.22
+    },
+    {
+      "id": "databricks",
+      "name": "Databricks",
+      "totalScore10": 4.61,
+      "totalScore100": 46.11
+    },
+    {
+      "id": "clickhouse",
+      "name": "ClickHouse",
+      "totalScore10": 4.61,
+      "totalScore100": 46.11
+    },
+    {
+      "id": "couchbase",
+      "name": "Couchbase",
+      "totalScore10": 4.33,
+      "totalScore100": 43.33
     }
   ],
-  "reportSha256": "1dc7efdb61ea66129d780668a458f86b87b629185359e3fe14c396930726cc2e"
+  "reportSha256": "6449a54e9aea06d5cc414ea8ddf6960133caf70292818e909c92bfba264e1912"
 }
