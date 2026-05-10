@@ -1,55 +1,55 @@
 {
-  "generatedAt": "2026-05-09T05:32:50.063Z",
+  "generatedAt": "2026-05-10T05:48:10.291Z",
   "model": "gpt-4o-mini",
   "companies": [
     {
       "id": "supabase",
       "name": "Supabase",
-      "totalScore10": 6.33,
-      "totalScore100": 63.33
+      "totalScore10": 7.22,
+      "totalScore100": 72.22
     },
     {
       "id": "redis",
       "name": "Redis",
-      "totalScore10": 5.94,
-      "totalScore100": 59.44
-    },
-    {
-      "id": "pinecone",
-      "name": "Pinecone",
-      "totalScore10": 5.89,
-      "totalScore100": 58.89
-    },
-    {
-      "id": "neon",
-      "name": "Neon",
-      "totalScore10": 5.28,
-      "totalScore100": 52.78
+      "totalScore10": 6.06,
+      "totalScore100": 60.56
     },
     {
       "id": "mongodb",
       "name": "MongoDB",
-      "totalScore10": 4.72,
-      "totalScore100": 47.22
+      "totalScore10": 5.67,
+      "totalScore100": 56.67
     },
     {
-      "id": "databricks",
-      "name": "Databricks",
-      "totalScore10": 4.61,
-      "totalScore100": 46.11
+      "id": "pinecone",
+      "name": "Pinecone",
+      "totalScore10": 5.28,
+      "totalScore100": 52.78
     },
     {
-      "id": "clickhouse",
-      "name": "ClickHouse",
-      "totalScore10": 4.61,
-      "totalScore100": 46.11
+      "id": "neon",
+      "name": "Neon",
+      "totalScore10": 5.17,
+      "totalScore100": 51.67
     },
     {
       "id": "couchbase",
       "name": "Couchbase",
-      "totalScore10": 4.33,
-      "totalScore100": 43.33
+      "totalScore10": 5.17,
+      "totalScore100": 51.67
+    },
+    {
+      "id": "databricks",
+      "name": "Databricks",
+      "totalScore10": 4.67,
+      "totalScore100": 46.67
+    },
+    {
+      "id": "clickhouse",
+      "name": "ClickHouse",
+      "totalScore10": 4.56,
+      "totalScore100": 45.56
     }
   ],
-  "reportSha256": "6449a54e9aea06d5cc414ea8ddf6960133caf70292818e909c92bfba264e1912"
+  "reportSha256": "f7e220e460c54cca950512919de8dadf0d4e98382d2e5783021c2fd8713797a2"
 }
